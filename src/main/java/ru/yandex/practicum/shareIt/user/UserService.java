@@ -1,8 +1,11 @@
-package ru.practicum.user;
+package ru.yandex.practicum.shareIt.user;
 
-import java.util.List;
+import java.util.Collection;
 
-interface UserService {
-    List<User> getAllUsers();
-    User saveUser(User user);
+public interface UserService {
+    Collection<UserResponse> getAll();
+    UserResponse add(User newUser);
+    UserResponse update(User user);
+    UserResponse getById(long id);
+    void delete(long id);
 }

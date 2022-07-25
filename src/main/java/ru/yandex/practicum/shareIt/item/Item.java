@@ -1,9 +1,21 @@
 package ru.yandex.practicum.shareIt.item;
 
-public class ItemEntity {
-    long id;
-    String name;
-    String description;
-    boolean available;
-    long userId;
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
+public class Item {
+    private Long id;
+    @NotNull
+    @NotBlank
+    private String name;
+    @NotNull
+    @NotBlank
+    private String description;
+    @NotNull
+    private Boolean available;
+    private Long userId;
+
 }

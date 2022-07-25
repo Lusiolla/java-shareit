@@ -1,10 +1,6 @@
-package ru.yandex.practicum.filmorate.exeption;
+package ru.yandex.practicum.shareIt.exeption;
 
 public class UserAlreadyExistException extends RuntimeException {
     public UserAlreadyExistException() {
-    }
-
-    public UserAlreadyExistException(final String message) {
-        super(message);
     }
 }

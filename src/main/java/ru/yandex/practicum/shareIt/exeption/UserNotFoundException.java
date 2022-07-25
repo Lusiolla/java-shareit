@@ -1,10 +1,6 @@
-package ru.yandex.practicum.filmorate.exeption;
+package ru.yandex.practicum.shareIt.exeption;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {
-    }
-
-    public UserNotFoundException(final String message) {
-        super(message);
     }
 }

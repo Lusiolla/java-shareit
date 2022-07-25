@@ -1,8 +1,11 @@
-package ru.practicum.user;
+package ru.yandex.practicum.shareIt.user;
 
-import java.util.List;
+import java.util.Collection;
 
-interface UserRepository {
-    List<User> findAll();
-    User save(User user);
+public interface UserRepository {
+    Collection<User> findAll();
+    User saveNew(User newUser);
+    User update(UserUpdate updateUser);
+    User findById(long id);
+    void delete(long id);
 }

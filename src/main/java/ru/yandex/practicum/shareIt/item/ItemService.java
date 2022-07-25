@@ -1,11 +1,18 @@
 package ru.yandex.practicum.shareIt.item;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface ItemService {
-    List<Item> getItems(long userId);
+    Collection<ItemResponse> getItems(long userId);
 
-    Item addNewItem(long userId, Item item);
+    ItemResponse getById(long id);
 
-    void deleteItem(long userId, long itemId);
+    ItemResponse add(long userId, Item item);
+
+    ItemResponse update(long userId, Item item);
+
+    void delete(long userId, long itemId);
+
+    Collection<ItemResponse> search(String text);
+
 }

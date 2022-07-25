@@ -1,12 +1,21 @@
 package ru.yandex.practicum.shareIt.item;
 
-import java.util.List;
+import java.util.Collection;
 
-interface ItemRepository {
+public interface ItemRepository {
+    Collection<Item> findByUserId(long userId);
 
-    List<Item> findByUserId(long userId);
+    Item findByItemId(long itemId);
 
-    Item save(Item item);
+    Item saveNewItem(long userId, Item item);
+
+    void saveNewUser(long userId);
 
     void deleteByUserIdAndItemId(long userId, long itemId);
+
+    void deleteByUserId(long userId);
+
+    Item update(long userId, ItemUpdate updateItem);
+
+    Collection<Item> search(String text);
 }
