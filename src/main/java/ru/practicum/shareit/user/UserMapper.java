@@ -19,7 +19,7 @@ public class UserMapper {
         return response;
     }
 
-    //из dto в user
+    //из  в user
     public User mapToUser(UserDTO response) {
         User user = new User();
         user.setId(response.getId());
