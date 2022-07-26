@@ -1,4 +1,4 @@
-package ru.yandex.practicum.shareIt.user;
+package ru.practicum.shareit.user.dto;
 
 import lombok.Data;
 

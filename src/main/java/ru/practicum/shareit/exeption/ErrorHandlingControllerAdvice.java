@@ -1,4 +1,4 @@
-package ru.yandex.practicum.shareIt.exeption;
+package ru.practicum.shareit.exeption;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

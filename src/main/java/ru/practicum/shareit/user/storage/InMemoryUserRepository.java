@@ -1,10 +1,12 @@
-package ru.yandex.practicum.shareIt.user;
+package ru.practicum.shareit.user.storage;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.shareIt.exeption.UserAlreadyExistException;
-import ru.yandex.practicum.shareIt.exeption.UserNotFoundException;
-import ru.yandex.practicum.shareIt.item.ItemRepository;
+import ru.practicum.shareit.exeption.UserAlreadyExistException;
+import ru.practicum.shareit.exeption.UserNotFoundException;
+import ru.practicum.shareit.item.srorage.ItemRepository;
+import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.dto.UserUpdate;
 
 import java.util.ArrayList;
 import java.util.HashMap;

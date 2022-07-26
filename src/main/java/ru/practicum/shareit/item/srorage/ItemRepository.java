@@ -1,4 +1,7 @@
-package ru.yandex.practicum.shareIt.item;
+package ru.practicum.shareit.item.srorage;
+
+import ru.practicum.shareit.item.dto.ItemUpdate;
+import ru.practicum.shareit.item.model.Item;
 
 import java.util.Collection;
 
@@ -7,7 +10,7 @@ public interface ItemRepository {
 
     Item findByItemId(long itemId);
 
-    Item saveNewItem(long userId, Item item);
+    Item saveNewItem(Item item);
 
     void saveNewUser(long userId);
 
@@ -15,7 +18,7 @@ public interface ItemRepository {
 
     void deleteByUserId(long userId);
 
-    Item update(long userId, ItemUpdate updateItem);
+    Item update(ItemUpdate updateItem);
 
     Collection<Item> search(String text);
 }

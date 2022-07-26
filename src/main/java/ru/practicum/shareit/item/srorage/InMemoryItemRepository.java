@@ -1,8 +1,10 @@
-package ru.yandex.practicum.shareIt.item;
+package ru.practicum.shareit.item.srorage;
 
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.shareIt.exeption.ItemNotFoundException;
-import ru.yandex.practicum.shareIt.exeption.UserNotFoundException;
+import ru.practicum.shareit.item.dto.ItemUpdate;
+import ru.practicum.shareit.exeption.ItemNotFoundException;
+import ru.practicum.shareit.exeption.UserNotFoundException;
+import ru.practicum.shareit.item.model.Item;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,13 +31,13 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item saveNewItem(long userId, Item item) {
-        if (!usersItems.containsKey(userId)) {
+    public Item saveNewItem(Item item) {
+        if (!usersItems.containsKey(item.getUserId())) {
             throw new UserNotFoundException();
         }
         id = id + 1;
         item.setId(id);
-        usersItems.get(userId).add(item);
+        usersItems.get(item.getUserId()).add(item);
         items.put(item.getId(), item);
         return item;
     }
@@ -61,9 +63,9 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item update(long userId, ItemUpdate updateItem) {
+    public Item update(ItemUpdate updateItem) {
         Item itemFromRepository = items.get(updateItem.getId());
-        if (itemFromRepository == null || itemFromRepository.getUserId() != userId) {
+        if (itemFromRepository == null || !Objects.equals(itemFromRepository.getUserId(), updateItem.getUserId())) {
             throw new ItemNotFoundException();
         }
         if (updateItem.getName().isPresent()) {

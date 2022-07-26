@@ -1,7 +1,12 @@
-package ru.yandex.practicum.shareIt.item;
+package ru.practicum.shareit.item.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.practicum.shareit.item.dto.ItemDTO;
+import ru.practicum.shareit.item.dto.ItemUpdate;
+import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.srorage.ItemRepository;
+import ru.practicum.shareit.item.ItemMapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,27 +19,28 @@ public class ItemServiceImpl implements ItemService {
     private final ItemMapper mapper;
 
     @Override
-    public Collection<ItemResponse> getItems(long userId) {
+    public Collection<ItemDTO> getItems(long userId) {
 
         return repository.findByUserId(userId).stream().map(mapper::mapToItemResponse).collect(Collectors.toList());
     }
 
     @Override
-    public ItemResponse getById(long id) {
+    public ItemDTO getById(long id) {
 
         return mapper.mapToItemResponse(repository.findByItemId(id));
     }
 
     @Override
-    public ItemResponse add(long userId, Item item) {
-
-        return mapper.mapToItemResponse(repository.saveNewItem(userId, item));
+    public ItemDTO add(Item item, long userId) {
+        item.setUserId(userId);
+        return mapper.mapToItemResponse(repository.saveNewItem(item));
     }
 
     @Override
-    public ItemResponse update(long userId, Item item) {
-
-        return mapper.mapToItemResponse(repository.update(userId, mapper.mapToItemUpdate(item)));
+    public ItemDTO update(ItemUpdate item, long userId, long itemId) {
+        item.setUserId(userId);
+        item.setId(itemId);
+        return mapper.mapToItemResponse(repository.update(item));
     }
 
     @Override
@@ -44,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Collection<ItemResponse> search(String text) {
+    public Collection<ItemDTO> search(String text) {
         if (text.isBlank()) {
             return new ArrayList<>();
         } else {
