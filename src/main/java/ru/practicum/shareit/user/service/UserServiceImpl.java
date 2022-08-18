@@ -2,11 +2,14 @@ package ru.practicum.shareit.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.shareit.exeption.UserAlreadyExistException;
+import ru.practicum.shareit.exeption.UserNotFoundException;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.UserMapper;
-import ru.practicum.shareit.user.dto.UserDTO;
+import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdate;
-import ru.practicum.shareit.user.storage.UserRepository;
+import ru.practicum.shareit.user.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,31 +21,51 @@ class UserServiceImpl implements UserService {
     private final UserMapper mapper;
 
     @Override
-    public List<UserDTO> getAll() {
+    public List<UserDto> getAll() {
 
         return repository.findAll().stream().map(mapper::mapToUserResponse).collect(Collectors.toList());
     }
 
     @Override
-    public UserDTO add(User newUser) {
+    public UserDto add(User newUser) {
+        try {
+            return mapper.mapToUserResponse(repository.save(newUser));
+        } catch (RuntimeException e) {
+            throw new UserAlreadyExistException();
+        }
 
-        return mapper.mapToUserResponse(repository.saveNew(newUser));
     }
 
     @Override
-    public UserDTO update(UserUpdate updateUser) {
-        return mapper.mapToUserResponse(repository.update(updateUser));
+    @Transactional
+    public UserDto update(UserUpdate updateUser) {
+        User userFromRepository = repository.findById(updateUser.getId()).orElseThrow(UserNotFoundException::new);
+
+        if (updateUser.getEmail().isPresent()) {
+            userFromRepository.setEmail(updateUser.getEmail().get());
+        }
+
+        if (updateUser.getName().isPresent()) {
+            userFromRepository.setName(updateUser.getName().get());
+        }
+        try {
+            return mapper.mapToUserResponse(repository.save(userFromRepository));
+        } catch (RuntimeException e) {
+            throw new UserAlreadyExistException();
+        }
+
     }
 
     @Override
-    public UserDTO getById(long id) {
+    public UserDto getById(long id) {
 
-        return mapper.mapToUserResponse(repository.findById(id));
+        return mapper.mapToUserResponse(repository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
     @Override
     public void delete(long id) {
 
-        repository.delete(id);
+        repository.deleteById(id);
     }
+
 }

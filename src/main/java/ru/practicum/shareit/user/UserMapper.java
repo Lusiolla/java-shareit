@@ -1,7 +1,7 @@
 package ru.practicum.shareit.user;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.shareit.user.dto.UserDTO;
+import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdate;
 import ru.practicum.shareit.user.model.User;
 
@@ -10,17 +10,17 @@ import java.util.Optional;
 
 @Component
 public class UserMapper {
-    //из user в dto
-    public UserDTO mapToUserResponse(User user) {
-        UserDTO response = new UserDTO();
+    // из user в dto
+    public UserDto mapToUserResponse(User user) {
+        UserDto response = new UserDto();
         response.setId(user.getId());
         response.setName(user.getName());
         response.setEmail(user.getEmail());
         return response;
     }
 
-    //из  в user
-    public User mapToUser(UserDTO response) {
+    // из  в user
+    public User mapToUser(UserDto response) {
         User user = new User();
         user.setId(response.getId());
         user.setName(response.getName());
@@ -28,7 +28,7 @@ public class UserMapper {
         return user;
     }
 
-    //из map в update
+    // из map в update
     public UserUpdate mapToUserUpdate(Map<String, Object> updates) {
         UserUpdate update = new UserUpdate();
         update.setName(updates.get("name") != null ? Optional.of(updates.get("name").toString()) : Optional.empty());
