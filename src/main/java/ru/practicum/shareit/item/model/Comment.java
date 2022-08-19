@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "items_comments", schema = "public")
+@Table(name = "items_comments", schema = "public",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"item_id", "author_id"}))
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

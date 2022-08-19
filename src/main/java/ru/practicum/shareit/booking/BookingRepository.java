@@ -10,13 +10,6 @@ import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    @Query(value = "select * " +
-            "from bookings as b " +
-            "where item_id = ? " +
-            "and (start_booking, end_booking) overlaps (?, ?)",
-            nativeQuery = true)
-    Collection<Booking> findIntersectionsByItemId(long itemId, LocalDateTime start, LocalDateTime end);
-
     Collection<Booking> findAllByUserIdOrderByStartBookingDesc(long userId);
 
     Collection<Booking> findAllByUserIdAndStartBookingLessThanEqualAndEndBookingAfterOrderByStartBookingDesc(

@@ -127,15 +127,9 @@ public class BookingServiceImpl implements BookingService {
         if (item.getUserId() == userId) {
             throw new UserNotFoundException();
         }
-
-        Collection<Booking> bookings = bookingRepository.findIntersectionsByItemId(newBooking.getItem().getId(),
-                newBooking.getStartBooking(), newBooking.getEndBooking());
-        if (!bookings.isEmpty()) {
-            throw new BookingAlreadyExistException();
-        }
         newBooking.setUser(user);
-        return mapper.mapToBookingCrate(bookingRepository.save(newBooking));
 
+        return mapper.mapToBookingCrate(bookingRepository.save(newBooking));
     }
 
     @Override
@@ -158,6 +152,7 @@ public class BookingServiceImpl implements BookingService {
             }
             booking.setStatus(Status.REJECTED);
         }
+
         return mapper.mapToBookingDto(bookingRepository.save(booking));
     }
 
@@ -167,6 +162,7 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getUser().getId() != userId && booking.getItem().getUserId() != userId) {
             throw new UserNotFoundException();
         }
+
         return mapper.mapToBookingDto(booking);
     }
 }
