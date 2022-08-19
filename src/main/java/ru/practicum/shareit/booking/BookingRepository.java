@@ -18,8 +18,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Collection<Booking> findIntersectionsByItemId(long itemId, LocalDateTime start, LocalDateTime end);
 
     Collection<Booking> findAllByUserIdOrderByStartBookingDesc(long userId);
+
     Collection<Booking> findAllByUserIdAndStartBookingLessThanEqualAndEndBookingAfterOrderByStartBookingDesc(
             long userId, LocalDateTime start, LocalDateTime end);
+
     Collection<Booking> findAllByUserIdAndEndBookingBeforeOrderByStartBookingDesc(long userId, LocalDateTime now);
 
     Collection<Booking> findAllByUserIdAndStartBookingAfterOrderByStartBookingDesc(long userId, LocalDateTime now);
@@ -57,7 +59,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "order by b.start_booking " +
             "limit 1", nativeQuery = true)
     Optional<Booking> findNextBooking(long id, LocalDateTime now);
-
 
 }
 

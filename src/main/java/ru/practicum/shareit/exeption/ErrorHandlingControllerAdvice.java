@@ -63,6 +63,7 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         log.warn(e.getError());
         return new ResponseEntity<>(e, HttpStatus.CONFLICT);
     }
+
     @ExceptionHandler(CommentAlreadyExistException.class)
     @ResponseBody
     protected ResponseEntity<Exception> handleCommentAlreadyExistException() {
@@ -70,6 +71,7 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         log.warn(e.getError());
         return new ResponseEntity<>(e, HttpStatus.CONFLICT);
     }
+
     @ExceptionHandler(BookingAlreadyExistException.class)
     @ResponseBody
     protected ResponseEntity<Exception> handleBookingAlreadyExistException() {
