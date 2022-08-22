@@ -3,7 +3,8 @@ package ru.practicum.shareit.item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.item.dto.ItemDTO;
+import ru.practicum.shareit.item.dto.CommentDto;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
@@ -17,42 +18,53 @@ import java.util.Map;
 @Slf4j
 public class ItemController {
     private final ItemService itemService;
-    private final ItemMapper mapper;
+    private final ItemMapper itemMapper;
+    private final CommentMapper commentMapper;
 
     @GetMapping
-    public Collection<ItemDTO> getAllItemsToUser(@RequestHeader("X-Sharer-User-Id") long userId) {
-        Collection<ItemDTO> response = itemService.getItems(userId);
+    public Collection<ItemDto> getAllItemsToUser(@Valid @NotNull @RequestHeader("X-Sharer-User-Id") long userId) {
+        Collection<ItemDto> response = itemService.getItems(userId);
         log.debug("Returned the list of items: {}", response.size());
         return response;
     }
 
     @GetMapping("{id}")
-    public ItemDTO getById(@NotNull @PathVariable Long id) {
-        ItemDTO response = itemService.getById(id);
+    public ItemDto getById(@Valid @NotNull@RequestHeader("X-Sharer-User-Id") long userId,
+                           @Valid @NotNull @PathVariable Long id) {
+        ItemDto response = itemService.getById(id, userId);
         log.debug("Returned the item: {}", response.getId());
         return response;
     }
 
     @GetMapping("search")
-    public Collection<ItemDTO> search(@RequestParam String text) {
-        Collection<ItemDTO> response = itemService.search(text);
+    public Collection<ItemDto> search(@RequestParam String text) {
+        Collection<ItemDto> response = itemService.search(text);
         log.debug("Found items: {}", response.size());
         return response;
     }
 
     @PostMapping
-    public ItemDTO add(@RequestHeader("X-Sharer-User-Id") Long userId,
-                       @Valid @RequestBody ItemDTO item) {
-        ItemDTO response = itemService.add(mapper.mapToItem(item), userId);
+    public ItemDto add(@Valid @NotNull@RequestHeader("X-Sharer-User-Id") Long userId,
+                       @Valid @NotNull @RequestBody ItemDto item) {
+        ItemDto response = itemService.add(itemMapper.mapToItem(item), userId);
         log.debug("User added: {}", response.getId());
         return response;
     }
 
+    @PostMapping("{itemId}/comment")
+    public CommentDto addComment(@Valid @NotNull @RequestHeader("X-Sharer-User-Id") Long userId,
+                                 @Valid @NotNull @RequestBody CommentDto comment,
+                                 @Valid @NotNull @PathVariable Long itemId) {
+        CommentDto response = itemService.addComment(commentMapper.mapToComment(comment, userId, itemId));
+        log.debug("Comment added: {}", response.getId());
+        return response;
+    }
+
     @PatchMapping("{itemId}")
-    public ItemDTO update(@RequestHeader("X-Sharer-User-Id") Long userId,
-                          @RequestBody Map<String, Object> updates,
-                          @NotNull @PathVariable Long itemId) {
-        ItemDTO response = itemService.update(mapper.mapToItemUpdate(updates), userId, itemId);
+    public ItemDto update(@Valid @NotNull @RequestHeader("X-Sharer-User-Id") Long userId,
+                          @Valid @NotNull @RequestBody Map<String, Object> updates,
+                          @Valid @NotNull @PathVariable Long itemId) {
+        ItemDto response = itemService.update(itemMapper.mapToItemUpdate(updates), userId, itemId);
         log.debug("Updated item information: {}", response.getId());
         return response;
 
