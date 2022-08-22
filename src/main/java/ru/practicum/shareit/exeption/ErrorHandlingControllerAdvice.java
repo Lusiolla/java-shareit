@@ -48,12 +48,20 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NoPermissionException.class)
+    @ExceptionHandler(CommentForbiddenException.class)
     @ResponseBody
-    protected ResponseEntity<Exception> handleNoPermission() {
+    protected ResponseEntity<Exception> handleCommentForbidden() {
         Exception e = new Exception("The user cannot write a review for this item");
         log.warn(e.getError());
         return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BookingForbiddenException.class)
+    @ResponseBody
+    protected ResponseEntity<Exception> handleBookingForbiddenException() {
+        Exception e = new Exception("The user cannot book his item");
+        log.warn(e.getError());
+        return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)

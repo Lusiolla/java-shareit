@@ -124,8 +124,10 @@ public class BookingServiceImpl implements BookingService {
         if (!item.getAvailable()) {
             throw new ItemNotAvailableException();
         }
+
+        // тесты запрещают резервировать пользователю свои вещи и хотят именно 404 status
         if (item.getUserId() == userId) {
-            throw new UserNotFoundException();
+            throw new BookingForbiddenException();
         }
         newBooking.setUser(user);
 

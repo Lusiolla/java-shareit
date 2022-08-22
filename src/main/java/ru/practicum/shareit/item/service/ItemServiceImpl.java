@@ -82,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
                 comment.getUser().getId(), comment.getItemId(), LocalDateTime.now(), Status.APPROVED);
 
         if (bookings.isEmpty()) {
-            throw new NoPermissionException();
+            throw new CommentForbiddenException();
         }
         comment.setUser(user);
         comment.setCreated(LocalDateTime.now());
