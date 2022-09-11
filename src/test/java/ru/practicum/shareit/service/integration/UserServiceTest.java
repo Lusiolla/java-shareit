@@ -7,21 +7,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserUpdate;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import java.util.Optional;
+
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static ru.practicum.shareit.TestUtil.*;
 
 @Transactional
-@SpringBootTest(
-        properties = "db.name=test",
-        webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserServiceTest {
 
@@ -31,11 +31,27 @@ public class UserServiceTest {
 
     @Test
     public void shouldUpdateUser() {
-        service.add(user1);
+        User user1 = new User(
+                null,
+                "test26@ya.ru",
+                "user1");
 
-        UserDto userDto = mapper.mapToUserDto(user1AfterUpd);
+        em.persist(user1);
+        em.flush();
 
-        service.update(userUpdate1);
+        User userUpd = new User(
+                user1.getId(),
+                "test26@ya.ru",
+                "user1upd"
+        );
+
+        UserDto userDto = mapper.mapToUserDto(userUpd);
+
+        service.update(new UserUpdate(
+                user1.getId(),
+                Optional.empty(),
+                Optional.of("user1upd")
+        ));
 
         TypedQuery<User> query = em.createQuery("Select u from User u where u.email = :email", User.class);
         User user = query.setParameter("email", userDto.getEmail())

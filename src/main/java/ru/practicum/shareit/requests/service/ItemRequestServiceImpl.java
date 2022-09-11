@@ -2,6 +2,7 @@ package ru.practicum.shareit.requests.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exeption.ItemRequestNotFoundException;
 import ru.practicum.shareit.exeption.UserNotFoundException;
 import ru.practicum.shareit.requests.ItemRequestMapper;
@@ -22,6 +23,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     private final ItemRequestMapper mapper;
 
     @Override
+    @Transactional
     public ItemRequestDto add(ItemRequest itemRequest) {
         userRepository.findById(itemRequest.getUserId()).orElseThrow(UserNotFoundException::new);
         itemRequest.setCreated(LocalDateTime.now());

@@ -28,7 +28,7 @@ public class BookingRepositoryTest {
     public void findLastBooking() {
         User newUser2 = new User(
                 null,
-                "test4@ya.ru",
+                "t4@ya.ru",
                 "user4"
         );
 
@@ -70,7 +70,7 @@ public class BookingRepositoryTest {
     public void findNextBooking() {
         User newUser1 = new User(
                 null,
-                "test5@ya.ru",
+                "t5@ya.ru",
                 "user5"
         );
         em.persist(newUser1);
