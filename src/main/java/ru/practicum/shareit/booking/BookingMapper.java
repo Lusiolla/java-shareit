@@ -7,6 +7,9 @@ import ru.practicum.shareit.booking.dto.BookingShort;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.item.model.Item;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Component
 public class BookingMapper {
 
@@ -57,5 +60,14 @@ public class BookingMapper {
         booking.setStatus(dto.getStatus());
         booking.setItem(item);
         return booking;
+    }
+
+    // из iterable в dto
+    public Collection<BookingDto> mapToBookingDto(Iterable<Booking> bookings) {
+        Collection<BookingDto> response = new ArrayList<>();
+        for (Booking booking : bookings) {
+            response.add(mapToBookingDto(booking));
+        }
+        return response;
     }
 }

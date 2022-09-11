@@ -5,16 +5,17 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
-public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandler {
+@Component
+public class ErrorHandlingControllerAdvice {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseBody
@@ -38,6 +39,22 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         Exception e = new Exception("The booking not found");
         log.warn(e.getError());
         return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ItemRequestNotFoundException.class)
+    @ResponseBody
+    protected ResponseEntity<Exception> handleItemRequestNotFoundException() {
+        Exception e = new Exception("The request not found");
+        log.warn(e.getError());
+        return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    protected ResponseEntity<Exception> handleMethodArgumentNotValidException() {
+        Exception e = new Exception("The object is not valid");
+        log.warn(e.getError());
+        return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ItemNotAvailableException.class)
@@ -80,14 +97,6 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         return new ResponseEntity<>(e, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(BookingAlreadyExistException.class)
-    @ResponseBody
-    protected ResponseEntity<Exception> handleBookingAlreadyExistException() {
-        Exception e = new Exception("The booking is already exist");
-        log.warn(e.getError());
-        return new ResponseEntity<>(e, HttpStatus.CONFLICT);
-    }
-
     @ExceptionHandler(ItemNotFoundException.class)
     @ResponseBody
     protected ResponseEntity<Exception> handleItemNotFoundException() {
@@ -108,6 +117,5 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
     @AllArgsConstructor
     private static class Exception {
         private String error;
-
     }
 }

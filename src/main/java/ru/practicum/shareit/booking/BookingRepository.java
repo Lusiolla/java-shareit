@@ -2,40 +2,13 @@ package ru.practicum.shareit.booking;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import ru.practicum.shareit.booking.model.Booking;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Optional;
 
-public interface BookingRepository extends JpaRepository<Booking, Long> {
-
-    Collection<Booking> findAllByUserIdOrderByStartBookingDesc(long userId);
-
-    Collection<Booking> findAllByUserIdAndStartBookingLessThanEqualAndEndBookingAfterOrderByStartBookingDesc(
-            long userId, LocalDateTime start, LocalDateTime end);
-
-    Collection<Booking> findAllByUserIdAndEndBookingBeforeOrderByStartBookingDesc(long userId, LocalDateTime now);
-
-    Collection<Booking> findAllByUserIdAndStartBookingAfterOrderByStartBookingDesc(long userId, LocalDateTime now);
-
-    Collection<Booking> findAllByUserIdAndStatusOrderByStartBookingDesc(long userId, Status status);
-
-    Collection<Booking> findAllByItemIdInOrderByStartBookingDesc(Collection<Long> itemId);
-
-    Collection<Booking> findAllByItemIdInAndStartBookingBeforeAndEndBookingGreaterThanEqualOrderByStartBookingDesc(
-            Collection<Long> itemId, LocalDateTime start, LocalDateTime end);
-
-    Collection<Booking> findAllByItemIdInAndEndBookingBeforeOrderByStartBookingDesc(
-            Collection<Long> itemId, LocalDateTime now);
-
-    Collection<Booking> findAllByItemIdInAndStartBookingAfterOrderByStartBookingDesc(
-            Collection<Long> itemId, LocalDateTime now);
-
-    Collection<Booking> findAllByItemIdInAndStatusOrderByStartBookingDesc(Collection<Long> itemId, Status waiting);
-
-    Collection<Booking> findByUserIdAndItemIdAndStartBookingBeforeAndStatus(Long id, long itemId, LocalDateTime now,
-                                                                            Status status);
+public interface BookingRepository extends JpaRepository<Booking, Long>, QuerydslPredicateExecutor<Booking> {
 
     @Query(value = "select * " +
             "from bookings as b " +

@@ -16,20 +16,20 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
 
     @Override
     public List<UserDto> getAll() {
 
-        return repository.findAll().stream().map(mapper::mapToUserResponse).collect(Collectors.toList());
+        return repository.findAll().stream().map(mapper::mapToUserDto).collect(Collectors.toList());
     }
 
     @Override
     public UserDto add(User newUser) {
         try {
-            return mapper.mapToUserResponse(repository.save(newUser));
+            return mapper.mapToUserDto(repository.save(newUser));
         } catch (RuntimeException e) {
             throw new UserAlreadyExistException();
         }
@@ -49,7 +49,7 @@ class UserServiceImpl implements UserService {
             userFromRepository.setName(updateUser.getName().get());
         }
         try {
-            return mapper.mapToUserResponse(repository.save(userFromRepository));
+            return mapper.mapToUserDto(repository.save(userFromRepository));
         } catch (RuntimeException e) {
             throw new UserAlreadyExistException();
         }
@@ -59,7 +59,7 @@ class UserServiceImpl implements UserService {
     @Override
     public UserDto getById(long id) {
 
-        return mapper.mapToUserResponse(repository.findById(id).orElseThrow(UserNotFoundException::new));
+        return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
     @Override

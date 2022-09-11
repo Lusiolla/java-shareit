@@ -1,11 +1,11 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.shareit.booking.dto.BookingShort;
 
-import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -14,17 +14,18 @@ public class ItemWithBooking extends ItemDto {
     private BookingShort lastBooking;
     private BookingShort nextBooking;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ItemWithBooking that = (ItemWithBooking) o;
-        return Objects.equals(lastBooking, that.lastBooking) && Objects.equals(nextBooking, that.nextBooking);
+    public ItemWithBooking(
+            Long id,
+            @NotNull @NotBlank String name,
+            @NotNull @NotBlank String description,
+            @NotNull Boolean available,
+            Long requestId,
+            Collection<CommentDto> comments,
+            BookingShort lastBooking,
+            BookingShort nextBooking) {
+        super(id, name, description, available, requestId, comments);
+        this.lastBooking = lastBooking;
+        this.nextBooking = nextBooking;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), lastBooking, nextBooking);
-    }
 }
