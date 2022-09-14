@@ -84,6 +84,7 @@ public class BookingRepositoryTest {
                 null,
                 null
         );
+
         em.persist(newItem1);
 
         Booking newBooking1 = new Booking(

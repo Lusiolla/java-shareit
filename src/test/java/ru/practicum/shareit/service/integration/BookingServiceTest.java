@@ -228,16 +228,16 @@ public class BookingServiceTest {
         );
         Booking booking2 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 10, 15, 56),
-                LocalDateTime.of(2022, 9, 16, 15, 56),
+                LocalDateTime.of(2022, 10, 10, 15, 56),
+                LocalDateTime.of(2022, 10, 16, 15, 56),
                 item1,
                 user2,
                 Status.APPROVED
         );
         Booking booking3 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 13, 15, 56),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 13, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item4,
                 user1,
                 Status.REJECTED
@@ -245,7 +245,7 @@ public class BookingServiceTest {
         Booking booking4 = new Booking(
                 null,
                 LocalDateTime.now(),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item3,
                 user1,
                 Status.APPROVED
@@ -349,8 +349,8 @@ public class BookingServiceTest {
 
         Booking booking2 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 10, 15, 56),
-                LocalDateTime.of(2022, 9, 16, 15, 56),
+                LocalDateTime.of(2022, 10, 10, 15, 56),
+                LocalDateTime.of(2022, 10, 16, 15, 56),
                 item1,
                 user2,
                 Status.APPROVED
@@ -358,8 +358,8 @@ public class BookingServiceTest {
 
         Booking booking3 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 13, 15, 56),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 13, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item4,
                 user1,
                 Status.REJECTED
@@ -368,7 +368,7 @@ public class BookingServiceTest {
         Booking booking4 = new Booking(
                 null,
                 LocalDateTime.now(),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item3,
                 user1,
                 Status.APPROVED
@@ -470,16 +470,16 @@ public class BookingServiceTest {
         );
         Booking booking2 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 10, 15, 56),
-                LocalDateTime.of(2022, 9, 16, 15, 56),
+                LocalDateTime.of(2022, 10, 10, 15, 56),
+                LocalDateTime.of(2022, 10, 16, 15, 56),
                 item1,
                 user2,
                 Status.APPROVED
         );
         Booking booking3 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 13, 15, 56),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 13, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item4,
                 user1,
                 Status.REJECTED
@@ -487,7 +487,7 @@ public class BookingServiceTest {
         Booking booking4 = new Booking(
                 null,
                 LocalDateTime.now(),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item3,
                 user1,
                 Status.APPROVED
@@ -591,16 +591,16 @@ public class BookingServiceTest {
         );
         Booking booking2 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 10, 15, 56),
-                LocalDateTime.of(2022, 9, 16, 15, 56),
+                LocalDateTime.of(2022, 10, 10, 15, 56),
+                LocalDateTime.of(2022, 10, 16, 15, 56),
                 item1,
                 user2,
                 Status.APPROVED
         );
         Booking booking3 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 13, 15, 56),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 13, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item4,
                 user1,
                 Status.REJECTED
@@ -608,7 +608,7 @@ public class BookingServiceTest {
         Booking booking4 = new Booking(
                 null,
                 LocalDateTime.now(),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item3,
                 user1,
                 Status.APPROVED
@@ -704,16 +704,16 @@ public class BookingServiceTest {
         );
         Booking booking2 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 10, 15, 56),
-                LocalDateTime.of(2022, 9, 16, 15, 56),
+                LocalDateTime.of(2022, 10, 10, 15, 56),
+                LocalDateTime.of(2022, 10, 16, 15, 56),
                 item1,
                 user2,
                 Status.APPROVED
         );
         Booking booking3 = new Booking(
                 null,
-                LocalDateTime.of(2022, 9, 13, 15, 56),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 13, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item4,
                 user1,
                 Status.REJECTED
@@ -721,7 +721,7 @@ public class BookingServiceTest {
         Booking booking4 = new Booking(
                 null,
                 LocalDateTime.now(),
-                LocalDateTime.of(2022, 9, 14, 15, 56),
+                LocalDateTime.of(2022, 10, 14, 15, 56),
                 item3,
                 user1,
                 Status.APPROVED
