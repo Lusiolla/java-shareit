@@ -3,10 +3,7 @@ package ru.practicum.shareit.item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.booking.dto.BookingShort;
-import ru.practicum.shareit.item.dto.CommentDto;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemUpdate;
-import ru.practicum.shareit.item.dto.ItemWithBooking;
+import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.item.model.Item;
 
 
@@ -29,6 +26,19 @@ public class ItemMapper {
         response.setDescription(item.getDescription());
         response.setAvailable(item.getAvailable());
         response.setComments(mapToCommentDto(item));
+        response.setRequestId(item.getRequestId());
+        return response;
+    }
+
+    // из item в short
+    public ItemShort mapToItemShort(Item item) {
+        ItemShort response = new ItemShort();
+        response.setId(item.getId());
+        response.setName(item.getName());
+        response.setUserId(item.getUserId());
+        response.setDescription(item.getDescription());
+        response.setAvailable(item.getAvailable());
+        response.setRequestId(item.getRequestId());
         return response;
     }
 
@@ -39,6 +49,7 @@ public class ItemMapper {
         item.setName(dto.getName());
         item.setDescription(dto.getDescription());
         item.setAvailable(dto.getAvailable());
+        item.setRequestId(dto.getRequestId());
         return item;
     }
 
@@ -60,6 +71,7 @@ public class ItemMapper {
         response.setName(item.getName());
         response.setDescription(item.getDescription());
         response.setAvailable(item.getAvailable());
+        response.setRequestId(item.getRequestId());
         response.setComments(mapToCommentDto(item));
         response.setLastBooking(last);
         response.setNextBooking(next);

@@ -8,9 +8,9 @@ import ru.practicum.shareit.booking.model.Booking;
 import java.util.Collection;
 
 public interface BookingService {
-    Collection<BookingDto> getAllBookingByUserId(long userId, State state);
+    Collection<BookingDto> getAllBookingByUserId(long userId, State state, Integer from, Integer size);
 
-    Collection<BookingDto> getAllBookingItemsByUserId(long userId, State state);
+    Collection<BookingDto> getAllBookedItemsByUserId(long userId, State state, Integer from, Integer size);
 
     BookingCreate add(Booking newBooking, long userId);
 

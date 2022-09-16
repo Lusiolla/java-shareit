@@ -11,7 +11,7 @@ import java.util.Optional;
 @Component
 public class UserMapper {
     // из user в dto
-    public UserDto mapToUserResponse(User user) {
+    public UserDto mapToUserDto(User user) {
         UserDto response = new UserDto();
         response.setId(user.getId());
         response.setName(user.getName());

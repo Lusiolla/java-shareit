@@ -2,6 +2,7 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdate;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 @Slf4j
+@Validated
 public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
@@ -28,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public UserDto getById(@Valid @NotNull @PathVariable Long id) {
+    public UserDto getById(@NotNull @PathVariable Long id) {
         UserDto user = userService.getById(id);
         log.debug("Returned the user: {}", user.getId());
         return user;
@@ -37,13 +39,13 @@ public class UserController {
     @PostMapping
     public UserDto add(@Valid @NotNull @RequestBody UserDto newUser) {
         UserDto user = userService.add(mapper.mapToUser(newUser));
-        log.debug("User added: {}", user.getId());
+        //log.debug("User added: {}", user.getId());
         return user;
     }
 
     @PatchMapping("{id}")
-    public UserDto update(@RequestBody Map<String, Object> updates,
-                          @Valid @NotNull @PathVariable Long id) {
+    public UserDto update(@NotNull @RequestBody Map<String, Object> updates,
+                          @NotNull @PathVariable Long id) {
         UserUpdate updateUser = mapper.mapToUserUpdate(updates);
         updateUser.setId(id);
         UserDto user = userService.update(updateUser);
@@ -52,7 +54,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(@Valid @NotNull @PathVariable Long id) {
+    public void delete(@NotNull @PathVariable Long id) {
         userService.delete(id);
         log.debug("The user " + id + " delete.");
     }
