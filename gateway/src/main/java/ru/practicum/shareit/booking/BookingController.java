@@ -34,8 +34,7 @@ public class BookingController {
                                               @Positive @RequestParam(
                                                       name = "size",
                                                       defaultValue = "10") Integer size) {
-        BookingState state = BookingState.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
+        BookingState state = BookingState.from(stateParam).orElseThrow(IllegalArgumentException::new);
         log.info("Get booking with state {}, userId={}, from={}, size={}", stateParam, userId, from, size);
         return bookingClient.getBookings(userId, state, from, size);
     }
@@ -51,8 +50,7 @@ public class BookingController {
                                                   @Positive @RequestParam(
                                                           name = "size",
                                                           defaultValue = "10") Integer size) {
-        BookingState state = BookingState.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
+        BookingState state = BookingState.from(stateParam).orElseThrow(IllegalArgumentException::new);
         log.info("Get booking with state {}, userId={}, from={}, size={}", stateParam, userId, from, size);
         return bookingClient.getBookingItems(userId, state, from, size);
     }
