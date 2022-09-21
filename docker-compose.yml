@@ -26,7 +26,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   db:
-    image: postgres:13.7
+    image: postgres:13.7-alpine
     container_name: db_container
     ports:
       - "20100:5432"
