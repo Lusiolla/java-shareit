@@ -13,7 +13,6 @@ import ru.practicum.shareit.item.dto.ItemRequest;
 import ru.practicum.shareit.item.dto.ItemUpdate;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class ItemClient extends BaseClient {
@@ -61,13 +60,7 @@ public class ItemClient extends BaseClient {
         return post("/" + itemId + "/comment", userId, commentRequest);
     }
 
-    public ResponseEntity<Object> updateItem(Long userId, Map<String, Object> updates, Long itemId) {
-        ItemUpdate update = new ItemUpdate();
-        update.setName(updates.get("name") != null ? Optional.of(updates.get("name").toString()) : Optional.empty());
-        update.setDescription(updates.get("description") != null ? Optional.of(updates.get("description").toString())
-                : Optional.empty());
-        update.setAvailable(updates.get("available") != null ? Optional.of((Boolean) updates.get("available"))
-                : Optional.empty());
+    public ResponseEntity<Object> updateItem(Long userId, ItemUpdate update, Long itemId) {
         return patch("/" + itemId, userId, update);
     }
 

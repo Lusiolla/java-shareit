@@ -11,10 +11,6 @@ import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserUpdate;
 
-
-import java.util.Map;
-import java.util.Optional;
-
 @Service
 public class UserClient extends BaseClient {
 
@@ -35,10 +31,7 @@ public class UserClient extends BaseClient {
         return post("", newUser);
     }
 
-    public ResponseEntity<Object> updateUser(Map<String, Object> updates, Long userId) {
-        UserUpdate update = new UserUpdate();
-        update.setName(updates.get("name") != null ? Optional.of(updates.get("name").toString()) : Optional.empty());
-        update.setEmail(updates.get("email") != null ? Optional.of(updates.get("email").toString()) : Optional.empty());
+    public ResponseEntity<Object> updateUser(UserUpdate update, Long userId) {
         return patch("/" + userId, update);
     }
 

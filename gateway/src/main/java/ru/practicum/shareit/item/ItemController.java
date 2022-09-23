@@ -8,13 +8,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.CommentRequest;
 import ru.practicum.shareit.item.dto.ItemRequest;
+import ru.practicum.shareit.item.dto.ItemUpdate;
 
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/items")
@@ -66,10 +66,10 @@ public class ItemController {
 
     @PatchMapping("{itemId}")
     public ResponseEntity<Object> updateItem(@NotNull @RequestHeader("X-Sharer-User-Id") Long userId,
-                                             @Valid @NotNull @RequestBody Map<String, Object> updates,
+                                             @Valid @NotNull @RequestBody ItemUpdate update,
                                              @NotNull @PathVariable Long itemId) {
         log.debug("Updated item information: {}", itemId);
-        return itemClient.updateItem(userId, updates, itemId);
+        return itemClient.updateItem(userId, update, itemId);
 
     }
 

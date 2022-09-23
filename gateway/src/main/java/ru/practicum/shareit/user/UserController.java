@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserUpdate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/users")
@@ -28,10 +28,10 @@ public class UserController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Object> update(@NotNull @RequestBody Map<String, Object> updates,
+    public ResponseEntity<Object> update(@NotNull @RequestBody UserUpdate update,
                                          @NotNull @PathVariable Long id) {
         log.debug("Updated user information: {}", id);
-        return userClient.updateUser(updates, id);
+        return userClient.updateUser(update, id);
     }
 
     @GetMapping("{id}")
