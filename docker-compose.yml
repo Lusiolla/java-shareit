@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+
+  gateway:
+    build: ./gateway
+    image: gateway_image:latest
+    container_name: gtw_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - server
+    environment:
+      - SHAREIT_SERVER_URL=http://server:9090
+
+  server:
+    build: ./server
+    image: server_image:latest
+    container_name: srv_container
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_container:5432/shareit
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  db:
+    image: postgres:13.7-alpine
+    container_name: db_container
+    ports:
+      - "20100:5432"
+    environment:
+      - POSTGRES_DB=shareit
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
