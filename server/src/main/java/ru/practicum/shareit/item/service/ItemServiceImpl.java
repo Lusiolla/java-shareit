@@ -98,7 +98,6 @@ public class ItemServiceImpl implements ItemService {
                 .and(QBooking.booking.item.id.eq(comment.getItemId())
                         .and(QBooking.booking.startBooking.before(LocalDateTime.now()))
                         .and(QBooking.booking.status.eq(Status.APPROVED))));
-
         if (!bookings.iterator().hasNext()) {
             throw new CommentForbiddenException();
         }

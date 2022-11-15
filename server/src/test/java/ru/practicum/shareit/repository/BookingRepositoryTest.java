@@ -89,8 +89,8 @@ public class BookingRepositoryTest {
 
         Booking newBooking1 = new Booking(
                 null,
-                LocalDateTime.of(2022, 10, 20, 15, 56),
-                LocalDateTime.of(2022, 10, 18, 15, 56),
+                LocalDateTime.of(2030, 10, 20, 15, 56),
+                LocalDateTime.of(2030, 10, 18, 15, 56),
                 newItem1,
                 newUser1,
                 Status.APPROVED
